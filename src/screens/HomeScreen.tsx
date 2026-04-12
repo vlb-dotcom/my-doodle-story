@@ -23,41 +23,47 @@ export default function HomeScreen() {
         </div>
       </div>
 
-      {/* Today prompt - sticky note */}
-      <div className="sticky-note sticky-note-yellow mb-6 p-5">
-        <h2 className="font-caveat text-xl text-pencil mb-1">
-          ✏️ What happened today?
-        </h2>
-        <p className="font-body text-sm text-pencil/70 mb-4">
-          Tell me about your day and I'll turn it into a doodle episode!
-        </p>
-        <button
-          onClick={() => navigate('new-episode')}
-          className="btn-doodle btn-doodle-primary"
-        >
-          + New Episode
-        </button>
+      {/* Today prompt card */}
+      <div className="notebook-page p-5 mb-5">
+        <div className="pl-10">
+          <h2 className="font-caveat text-xl text-pencil mb-1">
+            ✏️ What happened today?
+          </h2>
+          <p className="font-body text-sm text-muted-foreground mb-4">
+            Tell me about your day and I'll turn it into a doodle episode!
+          </p>
+          <button
+            onClick={() => navigate('new-episode')}
+            className="btn-doodle btn-doodle-primary"
+          >
+            + New Episode
+          </button>
+        </div>
       </div>
 
       <DoodleDivider />
 
-      {/* Latest episode - sticky note */}
+      {/* Latest episode preview */}
       {latestEpisode && (
-        <button
-          onClick={() => navigate(`episode-${latestEpisode.id}`)}
-          className="sticky-note sticky-note-blue w-full text-left p-5 mb-4 hover:rotate-[0.5deg] transition-transform"
-        >
-          <h3 className="font-caveat text-lg text-pencil mb-2 flex items-center gap-2">
+        <div className="mb-4">
+          <h3 className="font-caveat text-lg text-pencil mb-3 flex items-center gap-2">
             <StarDoodle className="text-primary w-4 h-4" />
             Latest Episode
           </h3>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xl">{latestEpisode.mood}</span>
-            <h4 className="font-hand text-base text-pencil">{latestEpisode.title}</h4>
-          </div>
-          <p className="font-body text-xs text-pencil/50 mb-1">{latestEpisode.date}</p>
-          <p className="font-body text-sm text-pencil/80 line-clamp-2">{latestEpisode.content}</p>
-        </button>
+          <button
+            onClick={() => navigate(`episode-${latestEpisode.id}`)}
+            className="w-full text-left notebook-page p-4 hover:shadow-lg transition-shadow"
+          >
+            <div className="pl-10">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">{latestEpisode.mood}</span>
+                <h4 className="font-hand text-base text-pencil">{latestEpisode.title}</h4>
+              </div>
+              <p className="font-body text-xs text-muted-foreground mb-1">{latestEpisode.date}</p>
+              <p className="font-body text-sm text-pencil/80 line-clamp-2">{latestEpisode.content}</p>
+            </div>
+          </button>
+        </div>
       )}
 
       {/* Quick actions */}
