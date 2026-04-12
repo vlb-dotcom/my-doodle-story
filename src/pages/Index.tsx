@@ -1,16 +1,36 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React from 'react';
+import { DiaryProvider, useDiary } from '@/context/DiaryContext';
+import OnboardingScreen from '@/screens/OnboardingScreen';
+import AvatarScreen from '@/screens/AvatarScreen';
+import HomeScreen from '@/screens/HomeScreen';
+import NewEpisodeScreen from '@/screens/NewEpisodeScreen';
+import ProcessingScreen from '@/screens/ProcessingScreen';
+import EpisodeResultScreen from '@/screens/EpisodeResultScreen';
+import NotebookScreen from '@/screens/NotebookScreen';
+import EpisodeDetailScreen from '@/screens/EpisodeDetailScreen';
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
-  return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
-  );
-};
+function DiaryApp() {
+  const { currentScreen } = useDiary();
 
-const Index = PlaceholderIndex;
+  if (currentScreen === 'onboarding') return <OnboardingScreen />;
+  if (currentScreen === 'avatar') return <AvatarScreen />;
+  if (currentScreen === 'home') return <HomeScreen />;
+  if (currentScreen === 'new-episode') return <NewEpisodeScreen />;
+  if (currentScreen === 'processing') return <ProcessingScreen />;
+  if (currentScreen === 'result') return <EpisodeResultScreen />;
+  if (currentScreen === 'notebook') return <NotebookScreen />;
+  if (currentScreen.startsWith('episode-')) {
+    const id = currentScreen.replace('episode-', '');
+    return <EpisodeDetailScreen episodeId={id} />;
+  }
+
+  return <OnboardingScreen />;
+}
+
+const Index = () => (
+  <DiaryProvider>
+    <DiaryApp />
+  </DiaryProvider>
+);
 
 export default Index;
