@@ -228,16 +228,41 @@
   background: hsl(25 60% 42%);
 }
 
-/* Sticker effect */
-.sticker {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  font-family: var(--font-hand);
-  font-size: 0.9rem;
-  transform: rotate(-2deg);
-  box-shadow: 1px 2px 4px hsl(25 20% 30% / 0.15);
+/* Sticky note effect */
+.sticky-note {
+  position: relative;
+  border-radius: 2px 2px 4px 4px;
+  box-shadow:
+    2px 3px 8px hsl(25 20% 30% / 0.15),
+    0 1px 3px hsl(25 20% 30% / 0.1);
+  transform: rotate(-1deg);
+}
+
+.sticky-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 12px;
+  background: hsl(var(--highlight) / 0.5);
+  border-radius: 0 0 2px 2px;
+  transform: translateY(-6px);
+  z-index: 1;
+}
+
+.sticky-note-yellow {
+  background: hsl(50 90% 88%);
+}
+
+.sticky-note-blue {
+  background: hsl(210 60% 90%);
+  transform: rotate(0.5deg);
+}
+
+.sticky-note-pink {
+  background: hsl(340 60% 92%);
+  transform: rotate(-0.8deg);
 }
 
 /* Mobile frame */

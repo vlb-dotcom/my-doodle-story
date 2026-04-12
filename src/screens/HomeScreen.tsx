@@ -23,12 +23,12 @@ export default function HomeScreen() {
         </div>
       </div>
 
-      {/* Today prompt */}
-      <div className="mb-6 py-3 cursor-default">
+      {/* Today prompt - sticky note */}
+      <div className="sticky-note sticky-note-yellow mb-6 p-5">
         <h2 className="font-caveat text-xl text-pencil mb-1">
           ✏️ What happened today?
         </h2>
-        <p className="font-body text-sm text-muted-foreground mb-4">
+        <p className="font-body text-sm text-pencil/70 mb-4">
           Tell me about your day and I'll turn it into a doodle episode!
         </p>
         <button
@@ -41,11 +41,11 @@ export default function HomeScreen() {
 
       <DoodleDivider />
 
-      {/* Latest episode preview */}
+      {/* Latest episode - sticky note */}
       {latestEpisode && (
         <button
           onClick={() => navigate(`episode-${latestEpisode.id}`)}
-          className="w-full text-left mb-4 py-3 rounded-lg px-3 -mx-3 hover:bg-pencil/5 transition-colors"
+          className="sticky-note sticky-note-blue w-full text-left p-5 mb-4 hover:rotate-[0.5deg] transition-transform"
         >
           <h3 className="font-caveat text-lg text-pencil mb-2 flex items-center gap-2">
             <StarDoodle className="text-primary w-4 h-4" />
@@ -55,7 +55,7 @@ export default function HomeScreen() {
             <span className="text-xl">{latestEpisode.mood}</span>
             <h4 className="font-hand text-base text-pencil">{latestEpisode.title}</h4>
           </div>
-          <p className="font-body text-xs text-muted-foreground mb-1">{latestEpisode.date}</p>
+          <p className="font-body text-xs text-pencil/50 mb-1">{latestEpisode.date}</p>
           <p className="font-body text-sm text-pencil/80 line-clamp-2">{latestEpisode.content}</p>
         </button>
       )}
