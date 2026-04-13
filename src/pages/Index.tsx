@@ -8,10 +8,13 @@ import ProcessingScreen from '@/screens/ProcessingScreen';
 import EpisodeResultScreen from '@/screens/EpisodeResultScreen';
 import NotebookScreen from '@/screens/NotebookScreen';
 import EpisodeDetailScreen from '@/screens/EpisodeDetailScreen';
+import LoginScreen from '@/screens/LoginScreen';
+import AccountScreen from '@/screens/AccountScreen';
 
 function DiaryApp() {
   const { currentScreen } = useDiary();
 
+  if (currentScreen === 'login') return <LoginScreen />;
   if (currentScreen === 'onboarding') return <OnboardingScreen />;
   if (currentScreen === 'avatar') return <AvatarScreen />;
   if (currentScreen === 'home') return <HomeScreen />;
@@ -19,12 +22,13 @@ function DiaryApp() {
   if (currentScreen === 'processing') return <ProcessingScreen />;
   if (currentScreen === 'result') return <EpisodeResultScreen />;
   if (currentScreen === 'notebook') return <NotebookScreen />;
+  if (currentScreen === 'account') return <AccountScreen />;
   if (currentScreen.startsWith('episode-')) {
     const id = currentScreen.replace('episode-', '');
     return <EpisodeDetailScreen episodeId={id} />;
   }
 
-  return <OnboardingScreen />;
+  return <LoginScreen />;
 }
 
 const Index = () => (
