@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDiary } from '@/context/DiaryContext';
 import { StarDoodle, HeartDoodle, SwirlDoodle } from '@/components/DoodleDecorations';
+import doodleCover from '@/assets/doodle-diary-cover.png';
 
 export default function LoginScreen() {
   const { navigate } = useDiary();
@@ -29,10 +30,7 @@ export default function LoginScreen() {
 
       {/* Logo / Title */}
       <div className="text-center mb-8 animate-float">
-        <div className="text-6xl mb-3">📓</div>
-        <h1 className="text-4xl font-bold text-foreground" style={{ fontFamily: 'var(--font-caveat)' }}>
-          My Doodle Diary
-        </h1>
+        <img src={doodleCover} alt="My Doodle Diary" className="w-36 h-auto mx-auto mb-3 rounded-lg shadow-lg" />
         <p className="text-muted-foreground mt-2" style={{ fontFamily: 'var(--font-hand)' }}>
           Your magical personal notebook ✨
         </p>
