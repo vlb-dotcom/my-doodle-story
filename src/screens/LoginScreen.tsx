@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDiary } from '@/context/DiaryContext';
 import { StarDoodle, HeartDoodle, SwirlDoodle } from '@/components/DoodleDecorations';
 import doodleCover from '@/assets/doodle-diary-cover.png';
+
+export default function LoginScreen() {
   const { navigate } = useDiary();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
