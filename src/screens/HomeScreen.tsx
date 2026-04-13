@@ -42,24 +42,22 @@ export default function HomeScreen() {
       </div>
 
       {/* Streak / Activity */}
-      <div className="flex items-center justify-around mb-5 py-3 notebook-page">
-        <div className="pl-2 text-center">
-          <span className="font-caveat text-lg text-pencil block">🔥 {(() => {
-            // Simple streak calc based on consecutive days
-            const streak = Math.min(episodes.length, 3);
-            return streak;
-          })()}-day</span>
-          <span className="font-body text-[10px] text-muted-foreground">streak</span>
+      <div className="doodle-border rounded-xl bg-card/60 px-4 py-3 mb-5 flex items-center gap-4">
+        <div className="flex items-center gap-1.5">
+          <span className="text-base animate-wiggle inline-block">🔥</span>
+          <div>
+            <span className="font-caveat text-base text-pencil font-bold">{Math.min(episodes.length, 3)}-day streak</span>
+          </div>
         </div>
-        <div className="w-px h-8 bg-pencil/20" />
-        <div className="text-center">
-          <span className="font-caveat text-lg text-pencil block">📝 {episodes.length}</span>
-          <span className="font-body text-[10px] text-muted-foreground">episodes</span>
+        <span className="font-body text-pencil/30">·</span>
+        <div className="flex items-center gap-1.5">
+          <span className="text-base">📝</span>
+          <span className="font-hand text-sm text-pencil">{episodes.length} episodes</span>
         </div>
-        <div className="w-px h-8 bg-pencil/20" />
-        <div className="pr-2 text-center">
-          <span className="font-caveat text-lg text-pencil block">📅 {episodes.length > 0 ? 'yesterday' : 'never'}</span>
-          <span className="font-body text-[10px] text-muted-foreground">last entry</span>
+        <span className="font-body text-pencil/30">·</span>
+        <div className="flex items-center gap-1.5">
+          <span className="text-base">📅</span>
+          <span className="font-hand text-sm text-muted-foreground">{episodes.length > 0 ? 'yesterday' : 'never'}</span>
         </div>
       </div>
 
