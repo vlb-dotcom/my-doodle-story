@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useDiary } from '@/context/DiaryContext';
 import { StarDoodle, HeartDoodle, SwirlDoodle, DoodleDivider } from '@/components/DoodleDecorations';
-
-const defaultAvatar = 'https://api.dicebear.com/7.x/adventurer-neutral/svg?seed=doodler';
+import defaultAvatar from '@/assets/default-avatar.png';
 
 export default function AccountScreen() {
   const { avatar, episodes, navigate } = useDiary();
