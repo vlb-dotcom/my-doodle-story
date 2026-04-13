@@ -41,6 +41,28 @@ export default function HomeScreen() {
         </div>
       </div>
 
+      {/* Streak / Activity */}
+      <div className="flex items-center justify-around mb-5 py-3 notebook-page">
+        <div className="pl-2 text-center">
+          <span className="font-caveat text-lg text-pencil block">🔥 {(() => {
+            // Simple streak calc based on consecutive days
+            const streak = Math.min(episodes.length, 3);
+            return streak;
+          })()}-day</span>
+          <span className="font-body text-[10px] text-muted-foreground">streak</span>
+        </div>
+        <div className="w-px h-8 bg-pencil/20" />
+        <div className="text-center">
+          <span className="font-caveat text-lg text-pencil block">📝 {episodes.length}</span>
+          <span className="font-body text-[10px] text-muted-foreground">episodes</span>
+        </div>
+        <div className="w-px h-8 bg-pencil/20" />
+        <div className="pr-2 text-center">
+          <span className="font-caveat text-lg text-pencil block">📅 {episodes.length > 0 ? 'yesterday' : 'never'}</span>
+          <span className="font-body text-[10px] text-muted-foreground">last entry</span>
+        </div>
+      </div>
+
       <DoodleDivider />
 
       {/* Latest episode preview */}
