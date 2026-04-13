@@ -27,8 +27,8 @@ export default function AccountScreen() {
   return (
     <div className="mobile-frame paper-texture min-h-screen pb-10 relative">
       {/* Decorations */}
-      <div className="absolute top-6 right-6 opacity-30"><StarDoodle size={24} /></div>
-      <div className="absolute top-40 left-4 opacity-20"><SwirlDoodle size={36} /></div>
+      <div className="absolute top-6 right-6 opacity-30"><StarDoodle /></div>
+      <div className="absolute top-40 left-4 opacity-20"><SwirlDoodle /></div>
 
       {/* Header */}
       <div className="px-5 pt-6 pb-2 flex items-center justify-between">
@@ -150,7 +150,7 @@ export default function AccountScreen() {
       </div>
 
       <div className="flex justify-center mt-4 opacity-30">
-        <HeartDoodle size={20} />
+        <HeartDoodle />
       </div>
 
       <p className="text-center text-xs text-muted-foreground mt-2" style={{ fontFamily: 'var(--font-hand)' }}>

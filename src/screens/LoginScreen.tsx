@@ -18,13 +18,13 @@ export default function LoginScreen() {
     <div className="mobile-frame paper-texture min-h-screen flex flex-col items-center justify-center px-6 py-10 relative overflow-hidden">
       {/* Decorations */}
       <div className="absolute top-8 right-8 opacity-40">
-        <StarDoodle size={32} />
+        <StarDoodle />
       </div>
       <div className="absolute bottom-16 left-6 opacity-30">
-        <HeartDoodle size={28} />
+        <HeartDoodle />
       </div>
       <div className="absolute top-24 left-10 opacity-20">
-        <SwirlDoodle size={40} />
+        <SwirlDoodle />
       </div>
 
       {/* Logo / Title */}
