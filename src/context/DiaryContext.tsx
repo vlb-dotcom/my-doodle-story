@@ -60,7 +60,7 @@ export function DiaryProvider({ children }: { children: ReactNode }) {
   const [onboarded, setOnboarded] = useState(false);
   const [avatar, setAvatar] = useState<AvatarConfig | null>(null);
   const [episodes, setEpisodes] = useState<Episode[]>(sampleEpisodes);
-  const [currentScreen, setCurrentScreen] = useState('login');
+  const [currentScreen, setCurrentScreen] = useState('onboarding');
 
   const addEpisode = (ep: Omit<Episode, 'id'>) => {
     setEpisodes(prev => [{ ...ep, id: Date.now().toString() }, ...prev]);

@@ -18,9 +18,9 @@ export default function HomeScreen() {
           </h1>
           <p className="font-hand text-sm text-muted-foreground">{today}</p>
         </div>
-        <button onClick={() => navigate('account')} className="w-12 h-12 rounded-full bg-card border-2 border-pencil overflow-hidden shadow-md">
+        <div className="w-12 h-12 rounded-full bg-card border-2 border-pencil overflow-hidden shadow-md">
           <img src={defaultAvatar} alt="avatar" width={48} height={48} className="object-contain" />
-        </button>
+        </div>
       </div>
 
       {/* Today prompt card */}
