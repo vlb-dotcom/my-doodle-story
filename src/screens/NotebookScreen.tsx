@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useDiary } from '@/context/DiaryContext';
 import episodeSample from '@/assets/episode-sample.jpg';
 import { StarDoodle, HeartDoodle, SwirlDoodle } from '@/components/DoodleDecorations';
@@ -7,9 +7,25 @@ export default function NotebookScreen() {
   const { episodes, navigate } = useDiary();
   const [currentPage, setCurrentPage] = useState(0);
   const [flipping, setFlipping] = useState<'next' | 'prev' | null>(null);
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
 
-  const totalPages = episodes.length;
+  // Get unique moods from episodes
+  const uniqueMoods = useMemo(() => {
+    const moods = [...new Set(episodes.map(ep => ep.mood))];
+    return moods;
+  }, [episodes]);
 
+  // Filter episodes
+  const filteredEpisodes = useMemo(() => {
+    let result = episodes;
+    if (selectedMood) {
+      result = result.filter(ep => ep.mood === selectedMood);
+    }
+    return result;
+  }, [episodes, selectedMood]);
+
+  const totalPages = filteredEpisodes.length;
   const goToPage = (direction: 'next' | 'prev') => {
     const target = direction === 'next' ? currentPage + 1 : currentPage - 1;
     if (target < 0 || target >= totalPages) return;
@@ -20,7 +36,7 @@ export default function NotebookScreen() {
     }, 400);
   };
 
-  const episode = episodes[currentPage];
+  const episode = filteredEpisodes[currentPage];
 
   return (
     <div className="mobile-frame flex flex-col items-center justify-center min-h-screen px-4 py-6"
@@ -34,6 +50,86 @@ export default function NotebookScreen() {
       >
         ← Back
       </button>
+
+      {/* Filter toggle button */}
+      <button
+        onClick={() => setShowFilters(!showFilters)}
+        className="absolute top-5 right-5 font-hand text-sm z-20 px-3 py-1.5 rounded-full transition-all"
+        style={{
+          color: showFilters ? 'hsl(25 60% 48%)' : 'hsl(43 30% 75%)',
+          background: showFilters ? 'hsl(40 35% 90%)' : 'hsl(25 25% 25% / 0.5)',
+          border: `1.5px dashed ${showFilters ? 'hsl(25 60% 48% / 0.5)' : 'hsl(25 20% 40% / 0.3)'}`,
+          transform: showFilters ? 'rotate(-2deg)' : 'rotate(0deg)',
+        }}
+      >
+        🔍 Filter
+      </button>
+
+      {/* Filter panel */}
+      {showFilters && (
+        <div
+          className="absolute top-14 right-4 z-30 p-3 rounded-xl font-hand"
+          style={{
+            background: 'hsl(42 38% 94%)',
+            border: '2px dashed hsl(25 40% 60% / 0.4)',
+            boxShadow: '3px 3px 0 hsl(25 30% 30% / 0.15), 0 4px 12px hsl(25 20% 10% / 0.2)',
+            transform: 'rotate(0.5deg)',
+            maxWidth: '240px',
+          }}
+        >
+          {/* Tape decoration */}
+          <div
+            className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-14 h-4 rounded-sm z-10"
+            style={{
+              background: 'hsl(50 80% 80% / 0.7)',
+              transform: 'rotate(-1deg)',
+              boxShadow: '0 1px 2px hsl(25 20% 30% / 0.1)',
+            }}
+          />
+
+          <p className="text-xs mb-2" style={{ color: 'hsl(25 15% 50%)' }}>
+            ✨ Filter by mood:
+          </p>
+
+          <div className="flex flex-wrap gap-1.5">
+            {/* All button */}
+            <button
+              onClick={() => { setSelectedMood(null); setCurrentPage(0); }}
+              className="px-2.5 py-1 rounded-full text-xs transition-all"
+              style={{
+                background: !selectedMood ? 'hsl(25 60% 48%)' : 'hsl(40 30% 88%)',
+                color: !selectedMood ? 'hsl(40 35% 96%)' : 'hsl(25 20% 35%)',
+                border: `1.5px solid ${!selectedMood ? 'hsl(25 60% 40%)' : 'hsl(30 20% 75%)'}`,
+                transform: !selectedMood ? 'scale(1.05) rotate(-1deg)' : 'scale(1)',
+                boxShadow: !selectedMood ? '0 2px 4px hsl(25 60% 48% / 0.3)' : 'none',
+              }}
+            >
+              All ✏️
+            </button>
+            {uniqueMoods.map(mood => (
+              <button
+                key={mood}
+                onClick={() => { setSelectedMood(mood === selectedMood ? null : mood); setCurrentPage(0); }}
+                className="px-2.5 py-1 rounded-full text-lg transition-all"
+                style={{
+                  background: selectedMood === mood ? 'hsl(25 60% 48%)' : 'hsl(40 30% 88%)',
+                  border: `1.5px solid ${selectedMood === mood ? 'hsl(25 60% 40%)' : 'hsl(30 20% 75%)'}`,
+                  transform: selectedMood === mood ? 'scale(1.15) rotate(-2deg)' : 'scale(1)',
+                  boxShadow: selectedMood === mood ? '0 2px 6px hsl(25 60% 48% / 0.3)' : 'none',
+                }}
+              >
+                {mood}
+              </button>
+            ))}
+          </div>
+
+          {selectedMood && (
+            <p className="text-[10px] mt-2 italic" style={{ color: 'hsl(25 15% 55%)' }}>
+              📖 {filteredEpisodes.length} episode{filteredEpisodes.length !== 1 ? 's' : ''} found
+            </p>
+          )}
+        </div>
+      )}
 
       {episode ? (
         <div className="w-full max-w-[380px] flex flex-col items-center gap-4">
@@ -247,7 +343,7 @@ export default function NotebookScreen() {
 
             {/* Page dots */}
             <div className="flex items-center gap-1.5">
-              {episodes.map((_, i) => (
+              {filteredEpisodes.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => {
