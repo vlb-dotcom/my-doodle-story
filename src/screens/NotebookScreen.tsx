@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useDiary } from '@/context/DiaryContext';
 import episodeSample from '@/assets/episode-sample.jpg';
 import { StarDoodle, HeartDoodle, SwirlDoodle } from '@/components/DoodleDecorations';
@@ -7,9 +7,25 @@ export default function NotebookScreen() {
   const { episodes, navigate } = useDiary();
   const [currentPage, setCurrentPage] = useState(0);
   const [flipping, setFlipping] = useState<'next' | 'prev' | null>(null);
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
 
-  const totalPages = episodes.length;
+  // Get unique moods from episodes
+  const uniqueMoods = useMemo(() => {
+    const moods = [...new Set(episodes.map(ep => ep.mood))];
+    return moods;
+  }, [episodes]);
 
+  // Filter episodes
+  const filteredEpisodes = useMemo(() => {
+    let result = episodes;
+    if (selectedMood) {
+      result = result.filter(ep => ep.mood === selectedMood);
+    }
+    return result;
+  }, [episodes, selectedMood]);
+
+  const totalPages = filteredEpisodes.length;
   const goToPage = (direction: 'next' | 'prev') => {
     const target = direction === 'next' ? currentPage + 1 : currentPage - 1;
     if (target < 0 || target >= totalPages) return;
