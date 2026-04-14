@@ -36,7 +36,7 @@ export default function NotebookScreen() {
     }, 400);
   };
 
-  const episode = episodes[currentPage];
+  const episode = filteredEpisodes[currentPage];
 
   return (
     <div className="mobile-frame flex flex-col items-center justify-center min-h-screen px-4 py-6"
