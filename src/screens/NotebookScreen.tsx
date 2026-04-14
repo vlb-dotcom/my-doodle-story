@@ -343,7 +343,7 @@ export default function NotebookScreen() {
 
             {/* Page dots */}
             <div className="flex items-center gap-1.5">
-              {episodes.map((_, i) => (
+              {filteredEpisodes.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => {
